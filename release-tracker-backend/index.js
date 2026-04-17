@@ -192,7 +192,7 @@ function runDeployment(clientId, upgradeIndex) {
 // Start server
 // ─────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log("Backend running on port 5000");
+  console.log(`Backend running on port ${PORT}`);
   console.log("Checking for missed or pending scheduled jobs...");
   restoreScheduledJobs();
 });
