@@ -1,0 +1,952 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "name": "BrightBridge Logistics",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 2,
+      "name": "Silverline Global Services",
+      "currentVersion": "7.26.2.0",
+      "upgrades": [
+        {
+          "fromVersion": "7.25.4.0",
+          "toVersion": "7.26.1.0",
+          "scheduledBy": "Vishwa",
+          "scheduledAt": "2026-03-01T10:00:00.000Z",
+          "status": "Failed",
+          "logs": [
+            {
+              "time": "2026-03-01T10:01:00.000Z",
+              "message": "Fetching build artifact"
+            },
+            {
+              "time": "2026-03-01T10:02:00.000Z",
+              "message": "Running DB migration"
+            },
+            {
+              "time": "2026-03-01T10:03:00.000Z",
+              "message": "Deployment failed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "ElitePath Technologies",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 4,
+      "name": "Horizon Systems",
+      "currentVersion": "7.25.4.0",
+      "upgrades": [
+        {
+          "fromVersion": "7.25.4.0",
+          "toVersion": "7.26.2.0",
+          "scheduledBy": "neha",
+          "scheduledAt": "2026-03-02T20:30",
+          "status": "Failed",
+          "logs": [
+            {
+              "time": "2026-04-03T19:22:45.793Z",
+              "message": "Server was offline during scheduled window — upgrade could not run"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Silverline Financial Group",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 6,
+      "name": "NorthStar Data Systems",
+      "currentVersion": "7.28.0.0",
+      "upgrades": [
+        {
+          "fromVersion": "7.22.8.0",
+          "toVersion": "7.28.0.0",
+          "scheduledBy": "Vishwa",
+          "scheduledAt": "2026-03-01T20:06",
+          "status": "Completed",
+          "logs": [
+            {
+              "time": "2026-03-01T14:36:40.864Z",
+              "message": "Upgrade scheduled by Vishwa for 1/3/2026, 8:06:00 pm"
+            },
+            {
+              "time": "2026-03-01T14:36:40.899Z",
+              "message": "Deployment started"
+            },
+            {
+              "time": "2026-03-01T14:36:42.914Z",
+              "message": "Fetching build artifact"
+            },
+            {
+              "time": "2026-03-01T14:36:44.929Z",
+              "message": "Running DB migrations"
+            },
+            {
+              "time": "2026-03-01T14:36:46.941Z",
+              "message": "Restarting application services"
+            },
+            {
+              "time": "2026-03-01T14:36:48.940Z",
+              "message": "Performing health check"
+            },
+            {
+              "time": "2026-03-01T14:36:50.957Z",
+              "message": "Deployment completed successfully"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "SummitCore Solutions",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 8,
+      "name": "Quantum Financial Group",
+      "currentVersion": "7.26.2.0",
+      "upgrades": [
+        {
+          "fromVersion": "7.23.3.0",
+          "toVersion": "7.26.2.0",
+          "scheduledBy": "Riya",
+          "scheduledAt": "2026-03-01T19:38",
+          "status": "Completed",
+          "logs": [
+            {
+              "time": "2026-03-01T14:08:02.023Z",
+              "message": "Fetching build artifact"
+            },
+            {
+              "time": "2026-03-01T14:08:04.029Z",
+              "message": "Running DB migrations"
+            },
+            {
+              "time": "2026-03-01T14:08:06.034Z",
+              "message": "Restarting application services"
+            },
+            {
+              "time": "2026-03-01T14:08:08.041Z",
+              "message": "Performing health check"
+            },
+            {
+              "time": "2026-03-01T14:08:10.047Z",
+              "message": "Deployment completed successfully"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Silverline Systems",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 10,
+      "name": "BluePeak Insurance Ltd",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 11,
+      "name": "BluePeak Solutions",
+      "currentVersion": "7.28.0.0",
+      "upgrades": [
+        {
+          "fromVersion": "7.20.1.0",
+          "toVersion": "7.27.1.0",
+          "scheduledBy": "Riya",
+          "scheduledAt": "2026-03-01T19:37",
+          "status": "Completed",
+          "logs": [
+            {
+              "time": "2026-03-01T14:07:02.009Z",
+              "message": "Fetching build artifact"
+            },
+            {
+              "time": "2026-03-01T14:07:04.023Z",
+              "message": "Running DB migrations"
+            },
+            {
+              "time": "2026-03-01T14:07:06.031Z",
+              "message": "Restarting application services"
+            },
+            {
+              "time": "2026-03-01T14:07:08.043Z",
+              "message": "Performing health check"
+            },
+            {
+              "time": "2026-03-01T14:07:10.060Z",
+              "message": "Deployment completed successfully"
+            }
+          ]
+        },
+        {
+          "fromVersion": "7.27.1.0",
+          "toVersion": "7.27.1.0",
+          "scheduledBy": "Diana",
+          "scheduledAt": "2026-03-01T20:14",
+          "status": "Completed",
+          "logs": [
+            {
+              "time": "2026-03-01T14:45:01.996Z",
+              "message": "Upgrade scheduled by Diana for 1/3/2026, 8:14:00 pm"
+            },
+            {
+              "time": "2026-03-01T14:45:02.045Z",
+              "message": "Deployment started"
+            },
+            {
+              "time": "2026-03-01T14:45:04.056Z",
+              "message": "Fetching build artifact"
+            },
+            {
+              "time": "2026-03-01T14:45:06.066Z",
+              "message": "Running DB migrations"
+            },
+            {
+              "time": "2026-03-01T14:45:08.081Z",
+              "message": "Restarting application services"
+            },
+            {
+              "time": "2026-03-01T14:45:10.096Z",
+              "message": "Performing health check"
+            },
+            {
+              "time": "2026-03-01T14:45:12.107Z",
+              "message": "Deployment completed successfully"
+            }
+          ]
+        },
+        {
+          "fromVersion": "7.27.1.0",
+          "toVersion": "7.28.0.0",
+          "scheduledBy": "Ziya",
+          "scheduledAt": "2026-04-04T12:03",
+          "status": "Completed",
+          "logs": [
+            {
+              "time": "2026-04-04T06:31:43.474Z",
+              "message": "Upgrade scheduled by Ziya for 4/4/2026, 12:03:00 pm"
+            },
+            {
+              "time": "2026-04-04T06:33:00.004Z",
+              "message": "Deployment started"
+            },
+            {
+              "time": "2026-04-04T06:33:02.014Z",
+              "message": "Fetching build artifact"
+            },
+            {
+              "time": "2026-04-04T06:33:04.019Z",
+              "message": "Running DB migrations"
+            },
+            {
+              "time": "2026-04-04T06:33:06.028Z",
+              "message": "Restarting application services"
+            },
+            {
+              "time": "2026-04-04T06:33:08.038Z",
+              "message": "Performing health check"
+            },
+            {
+              "time": "2026-04-04T06:33:10.050Z",
+              "message": "Deployment completed successfully"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "TitanEdge Medical",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 13,
+      "name": "CoreWave Logistics",
+      "currentVersion": "7.27.1.0",
+      "upgrades": [
+        {
+          "fromVersion": "7.19.4.0",
+          "toVersion": "7.27.1.0",
+          "scheduledBy": "Hina",
+          "scheduledAt": "2026-04-04T12:17",
+          "status": "Completed",
+          "logs": [
+            {
+              "time": "2026-04-04T06:46:16.588Z",
+              "message": "Upgrade scheduled by Hina for 4/4/2026, 12:17:00 pm"
+            },
+            {
+              "time": "2026-04-04T06:47:00.011Z",
+              "message": "Deployment started"
+            },
+            {
+              "time": "2026-04-04T06:47:02.016Z",
+              "message": "Fetching build artifact"
+            },
+            {
+              "time": "2026-04-04T06:47:04.029Z",
+              "message": "Running DB migrations"
+            },
+            {
+              "time": "2026-04-04T06:47:06.044Z",
+              "message": "Restarting application services"
+            },
+            {
+              "time": "2026-04-04T06:47:08.048Z",
+              "message": "Performing health check"
+            },
+            {
+              "time": "2026-04-04T06:47:10.050Z",
+              "message": "Deployment completed successfully"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Quantum Data Systems",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 15,
+      "name": "Infinity HealthCare",
+      "currentVersion": "7.23.3.0",
+      "upgrades": [
+        {
+          "fromVersion": "7.23.3.0",
+          "toVersion": "7.28.0.0",
+          "scheduledBy": "Vishwa",
+          "scheduledAt": "2026-03-01T19:50",
+          "status": "Failed",
+          "logs": [
+            {
+              "time": "2026-03-01T14:16:41.448Z",
+              "message": "Upgrade scheduled by Vishwa for 1/3/2026, 7:50:00 pm"
+            },
+            {
+              "time": "2026-03-01T14:26:30.587Z",
+              "message": "Server was offline during scheduled window — upgrade could not run"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "FusionNet Global Services",
+      "currentVersion": "7.25.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 17,
+      "name": "TitanEdge Logistics",
+      "currentVersion": "7.28.0.0",
+      "upgrades": [
+        {
+          "fromVersion": "7.19.4.0",
+          "toVersion": "7.28.0.0",
+          "scheduledBy": "Shiny",
+          "scheduledAt": "2026-04-04T08:45",
+          "status": "Completed",
+          "logs": [
+            {
+              "time": "2026-04-04T03:14:25.872Z",
+              "message": "Upgrade scheduled by Shiny for 4/4/2026, 8:45:00 am"
+            },
+            {
+              "time": "2026-04-04T03:15:00.010Z",
+              "message": "Deployment started"
+            },
+            {
+              "time": "2026-04-04T03:15:02.028Z",
+              "message": "Fetching build artifact"
+            },
+            {
+              "time": "2026-04-04T03:15:04.027Z",
+              "message": "Running DB migrations"
+            },
+            {
+              "time": "2026-04-04T03:15:06.027Z",
+              "message": "Restarting application services"
+            },
+            {
+              "time": "2026-04-04T03:15:08.039Z",
+              "message": "Performing health check"
+            },
+            {
+              "time": "2026-04-04T03:15:10.047Z",
+              "message": "Deployment completed successfully"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Horizon Global Services",
+      "currentVersion": "7.25.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 19,
+      "name": "Infinity Logistics",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 20,
+      "name": "Silverline HealthCare",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 21,
+      "name": "Skyline Consulting",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 22,
+      "name": "CoreWave Systems",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 23,
+      "name": "NorthStar Retail Corp",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 24,
+      "name": "Infinity HealthCare",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 25,
+      "name": "NorthStar Retail Corp",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 26,
+      "name": "Skyline Financial Group",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 27,
+      "name": "Silverline Insurance Ltd",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 28,
+      "name": "Horizon HealthCare",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 29,
+      "name": "Nova Consulting",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 30,
+      "name": "BluePeak Technologies",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 31,
+      "name": "NorthStar Financial Group",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 32,
+      "name": "TitanEdge Retail Corp",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 33,
+      "name": "PrimeAxis Logistics",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 34,
+      "name": "Orion Data Systems",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 35,
+      "name": "BrightBridge Global Services",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 36,
+      "name": "Quantum Global Services",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 37,
+      "name": "Infinity Systems",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 38,
+      "name": "Quantum Systems",
+      "currentVersion": "7.25.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 39,
+      "name": "BluePeak Systems",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 40,
+      "name": "Horizon Logistics",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 41,
+      "name": "SummitCore Logistics",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 42,
+      "name": "Silverline Retail Corp",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 43,
+      "name": "CoreWave Logistics",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 44,
+      "name": "Apex Retail Corp",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 45,
+      "name": "Skyline Systems",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 46,
+      "name": "Vertex Retail Corp",
+      "currentVersion": "7.20.1.0",
+      "upgrades": [
+        {
+          "fromVersion": "7.20.1.0",
+          "toVersion": "7.26.1.0",
+          "scheduledBy": "Diana",
+          "scheduledAt": "2026-03-01T20:08",
+          "status": "Failed",
+          "logs": [
+            {
+              "time": "2026-03-01T14:37:32.207Z",
+              "message": "Upgrade scheduled by Diana for 1/3/2026, 8:08:00 pm"
+            },
+            {
+              "time": "2026-03-01T14:38:00.014Z",
+              "message": "Deployment started"
+            },
+            {
+              "time": "2026-03-01T14:38:02.028Z",
+              "message": "Fetching build artifact"
+            },
+            {
+              "time": "2026-03-01T14:38:04.040Z",
+              "message": "Running DB migrations"
+            },
+            {
+              "time": "2026-03-01T14:38:06.050Z",
+              "message": "Restarting application services"
+            },
+            {
+              "time": "2026-03-01T14:38:08.063Z",
+              "message": "Performing health check"
+            },
+            {
+              "time": "2026-03-01T14:38:10.074Z",
+              "message": "Deployment failed — rolling back"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "name": "BrightBridge Insurance Ltd",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 48,
+      "name": "FusionNet Medical",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 49,
+      "name": "CoreWave Global Services",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 50,
+      "name": "SummitCore Consulting",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 51,
+      "name": "Horizon Technologies",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 52,
+      "name": "Velocity Enterprises",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 53,
+      "name": "Velocity Enterprises",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 54,
+      "name": "ElitePath Logistics",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 55,
+      "name": "SummitCore Data Systems",
+      "currentVersion": "7.25.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 56,
+      "name": "Nexora Enterprises",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 57,
+      "name": "FusionNet Systems",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 58,
+      "name": "Orion Consulting",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 59,
+      "name": "ElitePath Enterprises",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 60,
+      "name": "SummitCore Logistics",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 61,
+      "name": "Nova Insurance Ltd",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 62,
+      "name": "Skyline Consulting",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 63,
+      "name": "SummitCore Global Services",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 64,
+      "name": "Velocity Systems",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 65,
+      "name": "Silverline Data Systems",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 66,
+      "name": "CoreWave Retail Corp",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 67,
+      "name": "Apex Solutions",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 68,
+      "name": "CoreWave Logistics",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 69,
+      "name": "Silverline Solutions",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 70,
+      "name": "PrimeAxis HealthCare",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 71,
+      "name": "TitanEdge Enterprises",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 72,
+      "name": "Skyline HealthCare",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 73,
+      "name": "Silverline Data Systems",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 74,
+      "name": "Nexora Insurance Ltd",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 75,
+      "name": "BluePeak Technologies",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 76,
+      "name": "Quantum Financial Group",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 77,
+      "name": "Skyline Consulting",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 78,
+      "name": "Velocity Consulting",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 79,
+      "name": "BrightBridge Systems",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 80,
+      "name": "BluePeak Retail Corp",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 81,
+      "name": "Horizon Data Systems",
+      "currentVersion": "7.25.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 82,
+      "name": "PrimeAxis Data Systems",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 83,
+      "name": "Quantum Data Systems",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 84,
+      "name": "Quantum Enterprises",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 85,
+      "name": "Apex Technologies",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 86,
+      "name": "Horizon Data Systems",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 87,
+      "name": "TitanEdge HealthCare",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 88,
+      "name": "TitanEdge Systems",
+      "currentVersion": "7.24.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 89,
+      "name": "Silverline Data Systems",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 90,
+      "name": "Nexora Technologies",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 91,
+      "name": "Quantum Technologies",
+      "currentVersion": "7.23.3.0",
+      "upgrades": []
+    },
+    {
+      "id": 92,
+      "name": "Orion Systems",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 93,
+      "name": "CoreWave Systems",
+      "currentVersion": "7.21.7.0",
+      "upgrades": []
+    },
+    {
+      "id": 94,
+      "name": "PrimeAxis Global Services",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 95,
+      "name": "NorthStar HealthCare",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 96,
+      "name": "BrightBridge Insurance Ltd",
+      "currentVersion": "7.22.8.0",
+      "upgrades": []
+    },
+    {
+      "id": 97,
+      "name": "BrightBridge Enterprises",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    },
+    {
+      "id": 98,
+      "name": "ElitePath Retail Corp",
+      "currentVersion": "7.19.4.0",
+      "upgrades": []
+    },
+    {
+      "id": 99,
+      "name": "PrimeAxis Solutions",
+      "currentVersion": "7.18.2.0",
+      "upgrades": []
+    },
+    {
+      "id": 100,
+      "name": "CoreWave Retail Corp",
+      "currentVersion": "7.20.1.0",
+      "upgrades": []
+    }
+  ],
+  "availableBuilds": [
+    "7.26.1.0",
+    "7.26.2.0",
+    "7.27.0.0",
+    "7.27.1.0",
+    "7.28.0.0"
+  ],
+  "applications": []
+}
