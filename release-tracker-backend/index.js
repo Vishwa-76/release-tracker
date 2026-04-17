@@ -3,7 +3,6 @@ const PORT = process.env.PORT || 5000;
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-const schedule = require("node-schedule");
 
 const app = express();
 app.use(cors());
@@ -15,39 +14,55 @@ const readData = () => JSON.parse(fs.readFileSync(DATA_FILE));
 const writeData = (data) => fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 
 // ─────────────────────────────────────────────
-// On server START: check for any upgrades that
-// were "Scheduled" but missed (server was off).
-// Mark them Failed, then re-register future ones.
+// Semver comparison: returns true if `a` > `b`
+// e.g. isHigher("7.20.0", "7.19.4") → true
 // ─────────────────────────────────────────────
-function restoreScheduledJobs() {
-  const data = readData();
-  const now = new Date();
-  let dirty = false;
+function isHigher(a, b) {
+  const aParts = String(a).split(".").map(Number);
+  const bParts = String(b).split(".").map(Number);
+  const len = Math.max(aParts.length, bParts.length);
+  for (let i = 0; i < len; i++) {
+    const av = aParts[i] ?? 0;
+    const bv = bParts[i] ?? 0;
+    if (av > bv) return true;
+    if (av < bv) return false;
+  }
+  return false; // equal
+}
 
-  data.clients.forEach(client => {
-    client.upgrades.forEach((upgrade, idx) => {
-      if (upgrade.status !== "Scheduled") return;
+// ─────────────────────────────────────────────
+// Track which upgrades are currently running
+// (prevents double-execution in the poll loop)
+// ─────────────────────────────────────────────
+const runningJobs = new Set(); // keys: "clientId:upgradeIndex"
 
-      const scheduledDate = new Date(upgrade.scheduledAt);
+// ─────────────────────────────────────────────
+// Poll every 10 seconds for due scheduled jobs.
+// This is restart-safe — it reads from disk each
+// time, so it works even after Render wakes up.
+// ─────────────────────────────────────────────
+function startSchedulerPoller() {
+  setInterval(() => {
+    const data = readData();
+    const now = new Date();
 
-      if (scheduledDate <= now) {
-        // Missed — server was offline during the scheduled window
-        console.log(`[MISSED] Client "${client.name}" upgrade at ${scheduledDate} — marking Failed`);
-        upgrade.status = "Failed";
-        upgrade.logs.push({
-          time: new Date(),
-          message: "Server was offline during scheduled window — upgrade could not run"
-        });
-        dirty = true;
-      } else {
-        // Future job — re-register it
-        console.log(`[RESTORE] Scheduling job for client "${client.name}" at ${scheduledDate}`);
-        schedule.scheduleJob(scheduledDate, () => runDeployment(client.id, idx));
-      }
+    data.clients.forEach((client) => {
+      client.upgrades.forEach((upgrade, idx) => {
+        if (upgrade.status !== "Scheduled") return;
+
+        const scheduledDate = new Date(upgrade.scheduledAt);
+        if (scheduledDate > now) return; // not yet due
+
+        const jobKey = `${client.id}:${idx}`;
+        if (runningJobs.has(jobKey)) return; // already running
+
+        console.log(
+          `[POLLER] Firing upgrade for client "${client.name}" (index ${idx}) scheduled at ${scheduledDate}`
+        );
+        runDeployment(client.id, idx);
+      });
     });
-  });
-
-  if (dirty) writeData(data);
+  }, 10_000); // check every 10 seconds
 }
 
 // ─────────────────────────────────────────────
@@ -70,9 +85,10 @@ app.get("/builds", (req, res) => {
 app.post("/schedule-upgrade", (req, res) => {
   const { clientId, toVersion, scheduledBy, scheduledAt } = req.body;
 
-  // Validation
   if (!clientId || !toVersion || !scheduledBy || !scheduledAt) {
-    return res.status(400).send("All fields (clientId, toVersion, scheduledBy, scheduledAt) are required");
+    return res
+      .status(400)
+      .send("All fields (clientId, toVersion, scheduledBy, scheduledAt) are required");
   }
 
   const data = readData();
@@ -86,21 +102,22 @@ app.post("/schedule-upgrade", (req, res) => {
     return res.status(400).send("Invalid scheduledAt date");
   }
 
-  const client = data.clients.find(c => c.id == clientId);
+  const client = data.clients.find((c) => c.id == clientId);
   if (!client) return res.status(404).send("Client not found");
 
   if (toVersion === client.currentVersion) {
-  return res.status(400).send(`Client is already on version ${toVersion}`);
+    return res.status(400).send(`Client is already on version ${toVersion}`);
   }
 
-  const toVerParts = toVersion.split(".").map(Number);
-  const curVerParts = client.currentVersion.split(".").map(Number);
-  const isDowngrade = toVerParts.every((v, i) => v <= curVerParts[i]);
-
-  if (isDowngrade) {
-    return res.status(400).send(`Cannot schedule a downgrade. Client is on ${client.currentVersion}, target is ${toVersion}`);
+  // Fixed semver check — uses proper comparison now
+  if (!isHigher(toVersion, client.currentVersion)) {
+    return res
+      .status(400)
+      .send(
+        `Cannot schedule a downgrade. Client is on ${client.currentVersion}, target is ${toVersion}`
+      );
   }
-  
+
   const upgrade = {
     fromVersion: client.currentVersion,
     toVersion,
@@ -108,21 +125,25 @@ app.post("/schedule-upgrade", (req, res) => {
     scheduledAt,
     status: "Scheduled",
     logs: [
-      { time: new Date(), message: `Upgrade scheduled by ${scheduledBy} for ${scheduledDate.toLocaleString()}` }
-    ]
+      {
+        time: new Date(),
+        message: `Upgrade scheduled by ${scheduledBy} for ${scheduledDate.toLocaleString()}`,
+      },
+    ],
   };
 
   client.upgrades.push(upgrade);
   const upgradeIndex = client.upgrades.length - 1;
   writeData(data);
 
+  // If the scheduled time is already in the past, run immediately.
+  // Otherwise the poller will pick it up when the time comes.
   if (scheduledDate <= new Date()) {
-    // Past/immediate — run right away
     runDeployment(clientId, upgradeIndex);
   } else {
-    // Schedule with node-schedule (survives as long as server is up)
-    schedule.scheduleJob(scheduledDate, () => runDeployment(clientId, upgradeIndex));
-    console.log(`[SCHEDULED] Client "${client.name}" → ${toVersion} at ${scheduledDate}`);
+    console.log(
+      `[SCHEDULED] Client "${client.name}" → ${toVersion} at ${scheduledDate} (poller will fire it)`
+    );
   }
 
   res.json(upgrade);
@@ -132,40 +153,57 @@ app.post("/schedule-upgrade", (req, res) => {
 // GET /logs/:clientId
 // ─────────────────────────────────────────────
 app.get("/logs/:clientId", (req, res) => {
-  const client = readData().clients.find(c => c.id == req.params.clientId);
+  const client = readData().clients.find((c) => c.id == req.params.clientId);
   if (!client) return res.status(404).send("Client not found");
   res.json(client.upgrades);
 });
 
+app.get("/ping", (req, res) => res.send("ok"));
+
+setInterval(() => {
+  const url = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+  fetch(`${url}/ping`)
+    .then(() => console.log("[PING] Server kept alive"))
+    .catch((e) => console.log("[PING] Failed:", e.message));
+}, 14 * 60 * 1000);
 // ─────────────────────────────────────────────
 // Deployment Simulation
 // ─────────────────────────────────────────────
 function runDeployment(clientId, upgradeIndex) {
+  const jobKey = `${clientId}:${upgradeIndex}`;
+  if (runningJobs.has(jobKey)) return; // guard against double-run
+  runningJobs.add(jobKey);
+
   // Read fresh data before starting
   let data = readData();
-  let client = data.clients.find(c => c.id == clientId);
+  let client = data.clients.find((c) => c.id == clientId);
 
   if (!client || !client.upgrades[upgradeIndex]) {
-    console.error(`runDeployment: Cannot find client ${clientId} or upgrade index ${upgradeIndex}`);
+    console.error(
+      `runDeployment: Cannot find client ${clientId} or upgrade index ${upgradeIndex}`
+    );
+    runningJobs.delete(jobKey);
     return;
   }
 
   client.upgrades[upgradeIndex].status = "In Progress";
-  client.upgrades[upgradeIndex].logs.push({ time: new Date(), message: "Deployment started" });
+  client.upgrades[upgradeIndex].logs.push({
+    time: new Date(),
+    message: "Deployment started",
+  });
   writeData(data);
 
   const steps = [
     "Fetching build artifact",
     "Running DB migrations",
     "Restarting application services",
-    "Performing health check"
+    "Performing health check",
   ];
 
   let i = 0;
   const interval = setInterval(() => {
-    // Always read fresh data to avoid overwriting concurrent changes
     data = readData();
-    client = data.clients.find(c => c.id == clientId);
+    client = data.clients.find((c) => c.id == clientId);
     const upgrade = client.upgrades[upgradeIndex];
 
     if (i < steps.length) {
@@ -174,12 +212,20 @@ function runDeployment(clientId, upgradeIndex) {
       i++;
     } else {
       clearInterval(interval);
+      runningJobs.delete(jobKey);
+
       if (Math.random() < 0.2) {
         upgrade.status = "Failed";
-        upgrade.logs.push({ time: new Date(), message: "Deployment failed — rolling back" });
+        upgrade.logs.push({
+          time: new Date(),
+          message: "Deployment failed — rolling back",
+        });
       } else {
         upgrade.status = "Completed";
-        upgrade.logs.push({ time: new Date(), message: "Deployment completed successfully" });
+        upgrade.logs.push({
+          time: new Date(),
+          message: "Deployment completed successfully",
+        });
         client.currentVersion = upgrade.toVersion;
       }
       writeData(data);
@@ -193,6 +239,6 @@ function runDeployment(clientId, upgradeIndex) {
 // ─────────────────────────────────────────────
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Backend running on port ${PORT}`);
-  console.log("Checking for missed or pending scheduled jobs...");
-  restoreScheduledJobs();
+  console.log("Starting scheduler poller (10s interval)...");
+  startSchedulerPoller();
 });
