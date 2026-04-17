@@ -12,15 +12,25 @@ const JSONBIN_SECRET = process.env.JSONBIN_SECRET;
 // ─────────────────────────────────────────────
 // Read / Write via JSONBin
 // ─────────────────────────────────────────────
+let cache = null;
+let cacheTime = 0;
+
 async function readData() {
+  const now = Date.now();
+  if (cache && now - cacheTime < 8000) return cache; // use cache if < 8 seconds old
+  
   const res = await fetch(JSONBIN_URL + "/latest", {
     headers: { "X-Master-Key": JSONBIN_SECRET },
   });
   const json = await res.json();
-  return json.record;
+  cache = json.record;
+  cacheTime = now;
+  return cache;
 }
 
 async function writeData(data) {
+  cache = data;      // update cache immediately
+  cacheTime = Date.now();
   await fetch(JSONBIN_URL, {
     method: "PUT",
     headers: {
@@ -30,7 +40,6 @@ async function writeData(data) {
     body: JSON.stringify(data),
   });
 }
-
 // ─────────────────────────────────────────────
 // Semver comparison: returns true if a > b
 // ─────────────────────────────────────────────
