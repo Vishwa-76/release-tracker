@@ -1,4 +1,5 @@
 const express = require("express");
+const PORT = process.env.PORT || 5000;
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
@@ -190,7 +191,7 @@ function runDeployment(clientId, upgradeIndex) {
 // ─────────────────────────────────────────────
 // Start server
 // ─────────────────────────────────────────────
-app.listen(5000, () => {
+app.listen(PORT, () => {
   console.log("Backend running on port 5000");
   console.log("Checking for missed or pending scheduled jobs...");
   restoreScheduledJobs();
