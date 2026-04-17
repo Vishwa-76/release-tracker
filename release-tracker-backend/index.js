@@ -17,6 +17,7 @@ async function readData() {
     headers: { "X-Master-Key": JSONBIN_SECRET },
   });
   const json = await res.json();
+  console.log("[JSONBIN] Response:", JSON.stringify(json).slice(0, 200));
   return json.record;
 }
 
