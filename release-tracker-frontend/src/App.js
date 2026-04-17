@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
+const API = process.env.REACT_APP_API_URL;
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap');
 
@@ -558,7 +559,7 @@ function Dashboard() {
 
   const fetchClients = async () => {
     try {
-      const res = await fetch("http://localhost:5000/clients");
+      const res = await fetch(`${API}/clients`);
       if (!res.ok) throw new Error();
       setClients(await res.json());
       setError(null);
@@ -681,8 +682,8 @@ function Scheduler() {
     const load = async () => {
       try {
         const [cr, br] = await Promise.all([
-          fetch("http://localhost:5000/clients"),
-          fetch("http://localhost:5000/builds")
+          fetch(`${API}/clients`),
+          fetch(`${API}/builds`)
         ]);
         setClients(await cr.json());
         setBuilds(await br.json());
@@ -702,7 +703,7 @@ function Scheduler() {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/schedule-upgrade", {
+      const res = await fetch(`${API}/schedule-upgrade`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -824,7 +825,7 @@ function Logs() {
   const [autoRefresh, setAutoRefresh] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/clients")
+    fetch(`${API}/clients`)
       .then(r => r.json())
       .then(setClients)
       .catch(() => setError("Cannot connect to backend."));
@@ -833,7 +834,7 @@ function Logs() {
   const fetchLogs = async (id = selectedClient) => {
     if (!id) return;
     try {
-      const res = await fetch(`http://localhost:5000/logs/${id}`);
+      const res = await fetch(`${API}/logs/${id}`);
       if (!res.ok) throw new Error();
       setLogs(await res.json());
       setError(null);
